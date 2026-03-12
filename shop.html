@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shop premium home décor, furniture, lighting & textiles at LuxeHomeStore.">
+  <title>Shop — LuxeHomeStore</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero{padding:140px 0 60px;background:linear-gradient(135deg,#1A1A2E,#16213E);text-align:center;position:relative;overflow:hidden}
+    .page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(232,114,42,0.08),transparent 60%)}
+    .page-hero h1{font-family:var(--font-heading);font-size:2.8rem;margin-bottom:12px}
+    .breadcrumb{display:flex;gap:8px;justify-content:center;color:var(--text-muted);font-size:0.9rem}
+    .breadcrumb a{color:var(--primary-light)}
+    .shop-layout{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:48px 0}
+    .sidebar{position:sticky;top:100px;align-self:start}
+    .filter-group{margin-bottom:28px}
+    .filter-group h3{font-size:0.95rem;font-weight:600;margin-bottom:14px;color:var(--text-white);display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .filter-option{display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;color:var(--text-light);font-size:0.9rem;transition:var(--transition)}
+    .filter-option:hover{color:var(--primary-light)}
+    .filter-option input{accent-color:var(--primary);width:16px;height:16px}
+    .filter-option .count{margin-left:auto;color:var(--text-muted);font-size:0.8rem}
+    .price-range{display:flex;align-items:center;gap:8px;margin-top:8px}
+    .price-range input[type=range]{flex:1;accent-color:var(--primary)}
+    .price-range span{font-size:0.85rem;color:var(--primary-light);min-width:40px}
+    .shop-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .shop-toolbar .results{color:var(--text-muted);font-size:0.9rem}
+    .shop-toolbar select{background:var(--bg-card);border:1px solid var(--border);color:var(--text-white);padding:10px 16px;border-radius:var(--radius-sm);font-family:var(--font-body);font-size:0.85rem;cursor:pointer}
+    .shop-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .search-bar{display:flex;gap:12px;margin-bottom:24px}
+    .search-bar input{flex:1;padding:12px 20px;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;color:var(--text-white);font-family:var(--font-body);font-size:0.9rem;outline:none;transition:var(--transition)}
+    .search-bar input:focus{border-color:var(--primary)}
+    @media(max-width:992px){.shop-layout{grid-template-columns:1fr}.sidebar{display:none}}
+    @media(max-width:768px){.shop-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.shop-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="nav-container"></div>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Our <span class="highlight">Collection</span></h1>
+      <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Shop</span></div>
+    </div>
+  </section>
+  <section class="container">
+    <div class="shop-layout">
+      <aside class="sidebar">
+        <div class="search-bar"><input type="text" id="search" placeholder="Search products..." oninput="filterProducts()"></div>
+        <div class="filter-group">
+          <h3>Categories</h3>
+          <label class="filter-option"><input type="checkbox" value="all" checked onchange="filterProducts()"> All <span class="count" id="count-all"></span></label>
+          <label class="filter-option"><input type="checkbox" value="Furniture" onchange="filterProducts()"> Furniture <span class="count" id="count-furniture"></span></label>
+          <label class="filter-option"><input type="checkbox" value="Lighting" onchange="filterProducts()"> Lighting <span class="count" id="count-lighting"></span></label>
+          <label class="filter-option"><input type="checkbox" value="Textiles" onchange="filterProducts()"> Textiles <span class="count" id="count-textiles"></span></label>
+          <label class="filter-option"><input type="checkbox" value="Decor" onchange="filterProducts()"> Decor <span class="count" id="count-decor"></span></label>
+        </div>
+        <div class="filter-group">
+          <h3>Price Range</h3>
+          <div class="price-range"><span>$0</span><input type="range" min="0" max="600" value="600" id="priceRange" oninput="filterProducts()"><span id="priceVal">$600</span></div>
+        </div>
+      </aside>
+      <div class="shop-main">
+        <div class="shop-toolbar">
+          <span class="results" id="result-count">Showing 12 products</span>
+          <select id="sortBy" onchange="filterProducts()">
+            <option value="default">Sort by: Default</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="name">Name: A-Z</option>
+            <option value="rating">Rating: High to Low</option>
+          </select>
+        </div>
+        <div class="shop-grid" id="shop-grid"></div>
+      </div>
+    </div>
+  </section>
+  <div id="footer-container"></div>
+  <script src="common.js"></script>
+  <script>
+    document.getElementById('nav-container').innerHTML = getNavHTML('Shop');
+    document.getElementById('footer-container').innerHTML = getFooterHTML();
+    // Set counts
+    document.getElementById('count-all').textContent = `(${products.length})`;
+    ['Furniture','Lighting','Textiles','Decor'].forEach(c => {
+      const el = document.getElementById('count-' + c.toLowerCase());
+      if (el) el.textContent = `(${products.filter(p=>p.category===c).length})`;
+    });
+    function filterProducts() {
+      const search = document.getElementById('search').value.toLowerCase();
+      const maxPrice = parseInt(document.getElementById('priceRange').value);
+      document.getElementById('priceVal').textContent = '$' + maxPrice;
+      const checks = document.querySelectorAll('.filter-group input[type=checkbox]:checked');
+      const cats = [...checks].map(c => c.value);
+      const sort = document.getElementById('sortBy').value;
+      let filtered = products.filter(p => {
+        const matchSearch = p.name.toLowerCase().includes(search) || p.category.toLowerCase().includes(search);
+        const matchPrice = p.price <= maxPrice;
+        const matchCat = cats.includes('all') || cats.length === 0 || cats.includes(p.category);
+        return matchSearch && matchPrice && matchCat;
+      });
+      if (sort === 'price-low') filtered.sort((a,b) => a.price - b.price);
+      else if (sort === 'price-high') filtered.sort((a,b) => b.price - a.price);
+      else if (sort === 'name') filtered.sort((a,b) => a.name.localeCompare(b.name));
+      else if (sort === 'rating') filtered.sort((a,b) => b.rating - a.rating);
+      const grid = document.getElementById('shop-grid');
+      grid.innerHTML = filtered.length ? filtered.map(createProductCard).join('') : '<p style="grid-column:1/-1;text-align:center;color:var(--text-muted);padding:60px 0">No products found matching your criteria.</p>';
+      document.getElementById('result-count').textContent = `Showing ${filtered.length} product${filtered.length!==1?'s':''}`;
+      const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold:0.05 });
+      grid.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+    }
+    filterProducts();
+  </script>
+</body>
+</html>

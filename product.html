@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Product details — LuxeHomeStore premium home décor.">
+  <title>Product — LuxeHomeStore</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .page-hero{padding:120px 0 40px;background:linear-gradient(135deg,#1A1A2E,#16213E)}
+    .breadcrumb{display:flex;gap:8px;color:var(--text-muted);font-size:0.9rem}
+    .breadcrumb a{color:var(--primary-light)}
+    .product-detail{display:grid;grid-template-columns:1fr 1fr;gap:60px;padding:48px 0 80px;align-items:start}
+    .pd-gallery{position:sticky;top:100px}
+    .pd-main-img{width:100%;height:500px;object-fit:cover;border-radius:var(--radius);background:var(--bg-card);border:1px solid var(--border);margin-bottom:16px}
+    .pd-thumbs{display:flex;gap:12px}
+    .pd-thumb{width:80px;height:80px;object-fit:cover;border-radius:var(--radius-sm);border:2px solid var(--border);cursor:pointer;opacity:0.6;transition:var(--transition)}
+    .pd-thumb:hover,.pd-thumb.active{opacity:1;border-color:var(--primary)}
+    .pd-info{animation:fadeInRight 0.6s ease}
+    .pd-category{font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+    .pd-name{font-family:var(--font-heading);font-size:2.2rem;margin-bottom:16px;line-height:1.3}
+    .pd-rating{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .pd-rating .stars{color:var(--gold);font-size:1rem}
+    .pd-rating span{color:var(--text-muted);font-size:0.9rem}
+    .pd-price{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+    .pd-price .current{font-size:2rem;font-weight:700;color:var(--primary-light)}
+    .pd-price .old{font-size:1.2rem;color:var(--text-muted);text-decoration:line-through}
+    .pd-price .discount{background:var(--danger);color:#fff;padding:4px 12px;border-radius:50px;font-size:0.8rem;font-weight:600}
+    .pd-desc{color:var(--text-light);line-height:1.8;margin-bottom:28px;font-size:0.95rem}
+    .pd-features{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
+    .pd-feature{display:flex;align-items:center;gap:8px;font-size:0.9rem;color:var(--text-light)}
+    .pd-feature span:first-child{font-size:1.1rem}
+    .pd-qty{display:flex;align-items:center;gap:8px;margin-bottom:24px}
+    .pd-qty label{font-weight:500;font-size:0.9rem}
+    .qty-controls{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+    .qty-controls button{width:40px;height:40px;background:var(--bg-card);color:var(--text-white);font-size:1.1rem;border:none;cursor:pointer;transition:var(--transition)}
+    .qty-controls button:hover{background:var(--primary)}
+    .qty-controls input{width:50px;height:40px;text-align:center;background:transparent;border:none;border-left:1px solid var(--border);border-right:1px solid var(--border);color:var(--text-white);font-size:1rem;font-family:var(--font-body)}
+    .pd-actions{display:flex;gap:12px;margin-bottom:32px;flex-wrap:wrap}
+    .pd-meta{border-top:1px solid var(--border);padding-top:20px;display:flex;flex-direction:column;gap:8px}
+    .pd-meta span{font-size:0.85rem;color:var(--text-muted)}
+    .pd-meta strong{color:var(--text-light)}
+    .related-section{padding:60px 0 80px}
+    .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    @media(max-width:992px){.product-detail{grid-template-columns:1fr}.pd-gallery{position:static}.related-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.related-grid{grid-template-columns:1fr}.pd-name{font-size:1.6rem}.pd-main-img{height:320px}}
+  </style>
+</head>
+<body>
+  <div id="nav-container"></div>
+  <section class="page-hero"><div class="container"><div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="shop.html">Shop</a><span>/</span><span id="bc-name">Product</span></div></div></section>
+  <section class="container">
+    <div class="product-detail" id="product-detail"></div>
+  </section>
+  <section class="related-section">
+    <div class="container">
+      <div class="section-header"><h2 class="section-title">You May Also Like</h2><p class="section-subtitle">Similar products from our collection</p></div>
+      <div class="related-grid" id="related-grid"></div>
+    </div>
+  </section>
+  <div id="footer-container"></div>
+  <script src="common.js"></script>
+  <script>
+    document.getElementById('nav-container').innerHTML = getNavHTML('Shop');
+    document.getElementById('footer-container').innerHTML = getFooterHTML();
+    const params = new URLSearchParams(location.search);
+    const id = parseInt(params.get('id')) || 1;
+    const product = products.find(p => p.id === id) || products[0];
+    document.getElementById('bc-name').textContent = product.name;
+    document.title = `${product.name} — LuxeHomeStore`;
+    const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+    document.getElementById('product-detail').innerHTML = `
+      <div class="pd-gallery" style="animation:fadeInLeft 0.6s ease">
+        <img class="pd-main-img" src="${product.image}" alt="${product.name}">
+        <div class="pd-thumbs">
+          <img class="pd-thumb active" src="${product.image}" alt="View 1" onclick="document.querySelector('.pd-main-img').src=this.src;document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')">
+          <img class="pd-thumb" src="${product.image}" alt="View 2" onclick="document.querySelector('.pd-main-img').src=this.src;document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')">
+          <img class="pd-thumb" src="${product.image}" alt="View 3" onclick="document.querySelector('.pd-main-img').src=this.src;document.querySelectorAll('.pd-thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')">
+        </div>
+      </div>
+      <div class="pd-info">
+        <div class="pd-category">${product.category}</div>
+        <h1 class="pd-name">${product.name}</h1>
+        <div class="pd-rating"><span class="stars">${renderStars(product.rating)}</span><span>${product.rating} (${product.reviews} reviews)</span></div>
+        <div class="pd-price">
+          <span class="current">$${product.price}</span>
+          ${product.oldPrice ? `<span class="old">$${product.oldPrice}</span><span class="discount">-${discount}%</span>` : ''}
+        </div>
+        <p class="pd-desc">Elevate your living space with this beautifully crafted ${product.name.toLowerCase()}. Made with premium materials, this piece combines functionality with stunning design. Perfect for modern and traditional interiors alike.</p>
+        <div class="pd-features">
+          <div class="pd-feature"><span>✓</span> Premium Quality</div>
+          <div class="pd-feature"><span>✓</span> Free Shipping</div>
+          <div class="pd-feature"><span>✓</span> 30-Day Returns</div>
+          <div class="pd-feature"><span>✓</span> 1 Year Warranty</div>
+        </div>
+        <div class="pd-qty"><label>Quantity:</label>
+          <div class="qty-controls">
+            <button onclick="const i=document.getElementById('qty');i.value=Math.max(1,+i.value-1)">−</button>
+            <input type="number" id="qty" value="1" min="1" max="10">
+            <button onclick="const i=document.getElementById('qty');i.value=Math.min(10,+i.value+1)">+</button>
+          </div>
+        </div>
+        <div class="pd-actions">
+          <button class="btn btn-primary" onclick="const q=+document.getElementById('qty').value;for(let i=0;i<q;i++)addToCart({id:${product.id},name:'${product.name.replace(/'/g,"\\'")}',price:${product.price},image:'${product.image}'})">🛒 Add to Cart</button>
+          <button class="btn btn-accent">♡ Add to Wishlist</button>
+        </div>
+        <div class="pd-meta">
+          <span>SKU: <strong>LHS-${String(product.id).padStart(4,'0')}</strong></span>
+          <span>Category: <strong>${product.category}</strong></span>
+          <span>Availability: <strong style="color:var(--success)">In Stock</strong></span>
+        </div>
+      </div>
+    `;
+    // Related products
+    const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
+    const rg = document.getElementById('related-grid');
+    rg.innerHTML = related.map(createProductCard).join('') || products.slice(0,4).map(createProductCard).join('');
+    const obs = new IntersectionObserver(e => { e.forEach(en => { if(en.isIntersecting) en.target.classList.add('visible'); }); }, {threshold:0.05});
+    rg.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>

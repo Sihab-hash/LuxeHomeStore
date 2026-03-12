@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LuxeHomeStore - Premium home décor, furniture & lifestyle essentials. Transform your space with curated collections.">
+  <title>LuxeHomeStore — Premium Home Décor & Furniture</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="home.css">
+</head>
+<body>
+  <div id="nav-container"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+    </div>
+    <div class="container hero-inner">
+      <div class="hero-content">
+        <span class="hero-tag">✦ New Collection 2026</span>
+        <h1>Transform Your <span class="highlight">Living Space</span> Into Art</h1>
+        <p>Discover handcrafted furniture, premium textiles, and curated décor that brings warmth and elegance to every corner of your home.</p>
+        <div class="hero-cta">
+          <a href="shop.html" class="btn btn-primary">Shop Now →</a>
+          <a href="about.html" class="btn btn-outline">Our Story</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>12K+</strong><span>Happy Customers</span></div>
+          <div class="stat"><strong>500+</strong><span>Products</span></div>
+          <div class="stat"><strong>4.9★</strong><span>Avg Rating</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card hero-card-1">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=500&h=600&fit=crop" alt="Modern living room">
+        </div>
+        <div class="hero-card hero-card-2">
+          <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=300&h=350&fit=crop" alt="Elegant decor">
+        </div>
+        <div class="hero-floating-badge">🔥 30% OFF First Order</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="section categories-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2 class="section-title">Shop by Category</h2>
+        <p class="section-subtitle">Explore our carefully curated collections for every room</p>
+      </div>
+      <div class="categories-grid">
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.1s">
+          <div class="cat-icon">🛋️</div>
+          <h3>Furniture</h3>
+          <p>120+ Items</p>
+        </a>
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.2s">
+          <div class="cat-icon">💡</div>
+          <h3>Lighting</h3>
+          <p>85+ Items</p>
+        </a>
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.3s">
+          <div class="cat-icon">🧶</div>
+          <h3>Textiles</h3>
+          <p>200+ Items</p>
+        </a>
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.4s">
+          <div class="cat-icon">🖼️</div>
+          <h3>Wall Art</h3>
+          <p>95+ Items</p>
+        </a>
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.5s">
+          <div class="cat-icon">🕯️</div>
+          <h3>Candles</h3>
+          <p>60+ Items</p>
+        </a>
+        <a href="shop.html" class="category-card animate-on-scroll" data-delay="0.6s">
+          <div class="cat-icon">🌿</div>
+          <h3>Plants</h3>
+          <p>45+ Items</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section featured-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2 class="section-title">Featured Products</h2>
+        <p class="section-subtitle">Handpicked bestsellers loved by our community</p>
+      </div>
+      <div class="products-grid" id="featured-products"></div>
+      <div class="section-cta animate-on-scroll">
+        <a href="shop.html" class="btn btn-outline">View All Products →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEAL BANNER -->
+  <section class="deal-banner">
+    <div class="container deal-inner">
+      <div class="deal-content animate-on-scroll">
+        <span class="deal-tag">Limited Time Offer</span>
+        <h2>Spring Collection <span class="highlight">Sale</span></h2>
+        <p>Up to 40% off on selected furniture and home décor items. Don't miss out on these incredible deals!</p>
+        <div class="deal-timer">
+          <div class="timer-block"><span id="days">05</span><small>Days</small></div>
+          <div class="timer-block"><span id="hours">12</span><small>Hours</small></div>
+          <div class="timer-block"><span id="minutes">30</span><small>Minutes</small></div>
+          <div class="timer-block"><span id="seconds">00</span><small>Seconds</small></div>
+        </div>
+        <a href="shop.html" class="btn btn-primary">Shop the Sale →</a>
+      </div>
+      <div class="deal-visual animate-on-scroll">
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&h=400&fit=crop" alt="Sale items">
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section why-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2 class="section-title">Why Choose LuxeHomeStore</h2>
+        <p class="section-subtitle">We go beyond selling — we create experiences</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card animate-on-scroll" data-delay="0.1s">
+          <div class="feature-icon">🚚</div>
+          <h3>Free Shipping</h3>
+          <p>On all orders over $99. Fast & reliable delivery to your doorstep.</p>
+        </div>
+        <div class="feature-card animate-on-scroll" data-delay="0.2s">
+          <div class="feature-icon">🔄</div>
+          <h3>Easy Returns</h3>
+          <p>30-day hassle-free return policy. No questions asked.</p>
+        </div>
+        <div class="feature-card animate-on-scroll" data-delay="0.3s">
+          <div class="feature-icon">🛡️</div>
+          <h3>Quality Guarantee</h3>
+          <p>Every product is quality-checked and comes with warranty.</p>
+        </div>
+        <div class="feature-card animate-on-scroll" data-delay="0.4s">
+          <div class="feature-icon">💬</div>
+          <h3>24/7 Support</h3>
+          <p>Our friendly team is always here to help you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section testimonials-section">
+    <div class="container">
+      <div class="section-header animate-on-scroll">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Real stories from real homeowners</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card animate-on-scroll" data-delay="0.1s">
+          <div class="testi-stars">★★★★★</div>
+          <p>"Absolutely love the velvet chair! The quality is exceptional and it transformed my living room instantly."</p>
+          <div class="testi-author"><div class="testi-avatar">SM</div><div><strong>Sarah M.</strong><span>Verified Buyer</span></div></div>
+        </div>
+        <div class="testimonial-card animate-on-scroll" data-delay="0.2s">
+          <div class="testi-stars">★★★★★</div>
+          <p>"Best home store online! Fast shipping, beautiful packaging, and the products look even better in person."</p>
+          <div class="testi-author"><div class="testi-avatar">JK</div><div><strong>James K.</strong><span>Verified Buyer</span></div></div>
+        </div>
+        <div class="testimonial-card animate-on-scroll" data-delay="0.3s">
+          <div class="testi-stars">★★★★★</div>
+          <p>"I've ordered multiple times and never been disappointed. Their customer service is top-notch too!"</p>
+          <div class="testi-author"><div class="testi-avatar">EW</div><div><strong>Emma W.</strong><span>Verified Buyer</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-inner animate-on-scroll">
+        <h2>Stay in the Loop</h2>
+        <p>Subscribe for exclusive deals, new arrivals, and interior design tips.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); showToast('Thank you for subscribing!');">
+          <input type="email" placeholder="Enter your email address" required>
+          <button type="submit" class="btn btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <script src="common.js"></script>
+  <script>
+    document.getElementById('nav-container').innerHTML = getNavHTML('Home');
+    document.getElementById('footer-container').innerHTML = getFooterHTML();
+
+    // Render featured products (first 8)
+    const grid = document.getElementById('featured-products');
+    grid.innerHTML = products.slice(0, 8).map(createProductCard).join('');
+
+    // Re-observe new cards
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    grid.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+
+    // Countdown timer
+    function updateTimer() {
+      const end = new Date();
+      end.setDate(end.getDate() + 5);
+      end.setHours(23, 59, 59);
+      const stored = localStorage.getItem('luxeDealEnd');
+      const target = stored ? new Date(stored) : end;
+      if (!stored) localStorage.setItem('luxeDealEnd', end.toISOString());
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('days').textContent = String(d).padStart(2, '0');
+      document.getElementById('hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+      document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+    }
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
